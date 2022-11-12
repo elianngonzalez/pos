@@ -146,21 +146,6 @@ function NameExist(name){
 
  };
 
- async function Vuelto() {
-   let dinero = $('#dinero_recivido').val();
-   let total_pago = $('#total_pagar').val();
-   let total_vuelto = dinero - total_pago;
-   if (total_pago > 0) {
-    $('#total_vuelto_html').html('VUELTO: ARS '+total_vuelto);
-  }
-  if (total_vuelto < 0) {
-    $('#total_vuelto_html').html('VUELTO: NO ALCANZA PARA PAGAR');
-  }
-
- }
-
-
-
 
 </script>   
 
