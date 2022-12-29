@@ -25,4 +25,18 @@ class TrustProxies extends Middleware
         Request::HEADER_X_FORWARDED_PORT |
         Request::HEADER_X_FORWARDED_PROTO |
         Request::HEADER_X_FORWARDED_AWS_ELB;
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param Request $request
+     * @param \Closure $next
+     * @return mixed
+     */
+    public function handle($request, $next)
+    {
+        Request::setTrustedProxies( [ $request->getClientIp() ], Request::HEADER_X_FORWARDED_AWS_ELB );
+
+        return $next($request);
+    }
 }
