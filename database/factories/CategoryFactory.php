@@ -17,8 +17,8 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            'name'=> $this->faker->text($maxNbChars=20),
-            'description'=> $this->faker->text($maxNbChars=20),
+            'name' => $this->faker->unique()->word,
+            'description' => $this->faker->paragraph,
         ];
     }
 }

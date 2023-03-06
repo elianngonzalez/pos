@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\PurchaseDetails;
 
 class PurchaseDetailsSeeder extends Seeder
 {
@@ -14,6 +15,6 @@ class PurchaseDetailsSeeder extends Seeder
      */
     public function run()
     {
-        //
+        PurchaseDetails::factory(400)->create();
     }
 }

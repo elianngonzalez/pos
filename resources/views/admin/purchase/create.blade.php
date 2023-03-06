@@ -51,7 +51,15 @@
       agregar()
     });
   
+    $('#product_id').change(mostrarValores);
 
+    function mostrarValores() {
+      datosDelProducto = document.getElementById('product_id').value.split('_')
+      console.log({
+        datosDelProducto
+      });
+      $('#price').val(datosDelProducto[1])
+    }
 
   var cont = 0;
   total = 0;

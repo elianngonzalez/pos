@@ -17,12 +17,12 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            'name'=> $this->faker->name,
-            'dni'=> $this->faker->numberBetween($min=10000000, $max=43275997),
-            'ruc'=> $this->faker->numberBetween($min=10000000, $max=43275997),
-            'address'=> $this->faker->streetAddress,
-            'phone'=> $this->faker->numberBetween($min=100000000, $max=1000000000),
-            'email'=> $this->faker->email,
+            'name' => $this->faker->name,
+            'dni' => $this->faker->unique()->randomNumber(8),
+            'ruc' => $this->faker->unique()->randomNumber(8),
+            'address' => $this->faker->address,
+            'phone' => $this->faker->phoneNumber,
+            'email' => $this->faker->unique()->safeEmail,
         ];
     }
 }

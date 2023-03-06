@@ -37,6 +37,19 @@
         }
       })
 
+    }else if (type === 'Sin-existencias') {
+      swal({
+        title: 'Error!',
+        text: 'No hay productos disponibles',
+        icon: 'error',
+        button: {
+          text: "Ok",
+          value: true,
+          visible: true,
+          className: "btn btn-primary"
+        }
+      })
+
     }else if (type === 'success-message') {
       swal({
         title: 'Congratulations!',

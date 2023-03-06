@@ -24,7 +24,7 @@
   @yield('title')
   </title>
 </head>
-<body>
+<body class="sidebar-fixed">
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('layouts._nav')
@@ -32,7 +32,7 @@
     <!-- partial -->
     <div class="container-fluid page-body-wrapper">
       <!-- partial:partials/_settings-panel.html -->
-      <div class="theme-setting-wrapper">
+      <!--div class="theme-setting-wrapper">
         <div id="settings-trigger"><i class="fas fa-fill-drip"></i></div>
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close fa fa-times"></i>
@@ -50,7 +50,7 @@
             <div class="tiles default"></div>
           </div>
         </div>
-      </div>
+      </div-->
       <!-- partial -->
       <!-- partial:partials/_sidebar.html  -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -58,9 +58,9 @@
           <li class="nav-item nav-profile">
             <div class="nav-link">
       @if(Auth::user())
-              <div class="profile-image">
+              <!--div class="profile-image">
                 <img src="{{ asset('melody/images/faces/face5.jpg') }}" alt="image"/>
-              </div>
+              </div-->
 		  @if(Auth::user()->name)            
               <div class="profile-name">
           		<p class="name">
@@ -117,10 +117,7 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="/melody/pages/forms/basic_elements.html">Basic Elements</a></li>                
-                <li class="nav-item"><a class="nav-link" href="/melody/pages/forms/advanced_elements.html">Advanced Elements</a></li>
-                <li class="nav-item"><a class="nav-link" href="/melody/pages/forms/validation.html">Validation</a></li>
-                <li class="nav-item"><a class="nav-link" href="/melody/pages/forms/wizard.html">Wizard</a></li>
+                <li class="nav-item"><a class="nav-link" href="/clients">Todos</a></li>
               </ul>
             </div>
           </li>
@@ -132,8 +129,7 @@
             </a>
             <div class="collapse" id="editors">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"><a class="nav-link" href="/melody/pages/forms/text_editor.html">Text editors</a></li>
-                <li class="nav-item"><a class="nav-link" href="/melody/pages/forms/code_editor.html">Code editors</a></li>
+                <li class="nav-item"><a class="nav-link" href="/providers">Todos</a></li>
               </ul>
             </div>
           </li>

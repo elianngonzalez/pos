@@ -95,7 +95,7 @@
                         <tbody>
                           @foreach($purchaseDetails as $detail)
                         <tr>
-                           {{-- purchasee data modal show --}}
+                           {{-- purchase data modal show --}}
 
                           <td>{{$detail->product->code}}</td>
                           <td>{{$detail->product->name}}</td>

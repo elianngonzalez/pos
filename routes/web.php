@@ -8,7 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProviderController;
 use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SaleController;
-
+use Illuminate\Support\Facades\Auth;
 
 
 /*
@@ -31,7 +31,7 @@ Route::resource('/providers', ProviderController::class)->names('providers');
 Route::resource('/purchases', PurchaseController::class)->names('purchases');
 Route::resource('/sales', SaleController::class)->names('sales');
 
-
+Route::get('/stock/{id}' , [SaleController::class, 'stock']);
 
 
 
@@ -43,8 +43,12 @@ Route::resource('/sales', SaleController::class)->names('sales');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Auth::routes();
+Route::get('/chartData',[HomeController::class, 'earnByMonth'])->name('chartData');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/SalesDay',[HomeController::class, 'SalesByDay'])->name('SalesByDay');
+
+Route::get('/ProductsDay',[HomeController::class, 'ProductsOfDay'])->name('ProductsOfDay');
+
+Route::get('/test',[HomeController::class, 'test'])->name('test');

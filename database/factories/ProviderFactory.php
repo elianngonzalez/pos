@@ -17,11 +17,11 @@ class ProviderFactory extends Factory
     public function definition()
     {
         return [
-        'name'=>$this->faker->text($maxNbChars=20),
-        'email'=>$this->faker->email,
-        'ruc_number'=>$this->faker->numberBetween($min=1000000,$max=10000000),
-        'address'=>$this->faker->streetAddress,
-        'phone'=>$this->faker->numberBetween($min=100000000, $max=1000000000),    
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'ruc_number' => $this->faker->unique()->randomNumber(8),
+            'address' => $this->faker->address,
+            'phone' => $this->faker->phoneNumber,
         ];
     }
 }

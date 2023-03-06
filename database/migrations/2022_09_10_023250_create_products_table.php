@@ -18,10 +18,11 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique()->nullable();
             $table->string('name')->unique();;
-            $table->integer('stock')->default(0);
+            $table->decimal('stock')->default(0);
+            $table->decimal('alert')->default(0);
             $table->string('image');
             $table->decimal('sell_price');
-            $table->enum('status', ['ACTIVE' ,'DEACTIVATED'])->default('ACTIVE')->comment('estado del producto');
+            $table->enum('status', ['ACTIVE' ,'DEACTIVATED','DANGER'])->default('ACTIVE')->comment('estado del producto');
             
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');

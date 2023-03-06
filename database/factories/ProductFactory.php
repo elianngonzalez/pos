@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\Category;
+use App\Models\Provider;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -17,14 +19,18 @@ class ProductFactory extends Factory
     public function definition()
     {
         return [
-            'code'=>$this->faker->numberBetween($min=2,$max=10000000),
-            'name'=>$this->faker->word,
-            'stock'=>$this->faker->numberBetween($min=1,$max=1000),
-            'sell_price'=>$this->faker->numberBetween($min=1,$max=1000),
-            'image' => $this->faker->word,
-            'status'=>'ACTIVE',
-            'category_id'=>$this->faker->numberBetween($min=1,$max=20),
-            'provider_id'=>$this->faker->numberBetween($min=1,$max=90),
+            'code' => $this->faker->unique()->numberBetween(1,9999),
+            'name' => $this->faker->unique()->word,
+            'stock' => $this->faker->randomDigitNotNull,
+            'image' => $this->faker->imageUrl(),
+            'sell_price' => $this->faker->randomFloat(2,0,100),
+            'status' => $this->faker->randomElement(['ACTIVE','DEACTIVATED']),
+            'category_id' => function () {
+                return Category::all()->random();
+            },
+            'provider_id' => function () {
+                return Provider::all()->random();
+            },
         ];
     }
 }
