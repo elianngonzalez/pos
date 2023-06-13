@@ -6,13 +6,13 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
+
   <!-- plugins:css -->
-  
+
   <link rel="stylesheet" href="{{ asset('/melody/vendors/iconfonts/font-awesome/css/all.min.css') }}">
   <link rel="stylesheet" href="{{ asset('melody/vendors/css/vendor.bundle.base.css') }}">
   <link rel="stylesheet" href="{{ asset('melody/vendors/css/vendor.bundle.addons.css') }}">
-@yield('css')
+  @yield('css')
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -20,10 +20,11 @@
   <link rel="stylesheet" href="/melody/css/style.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="http://www.urbanui.com/" />
-<title>
-  @yield('title')
+  <title>
+    @yield('title')
   </title>
 </head>
+
 <body class="sidebar-fixed">
   <div class="container-scroller">
     <!-- partial:partials/_navbar.html -->
@@ -57,21 +58,21 @@
         <ul class="nav">
           <li class="nav-item nav-profile">
             <div class="nav-link">
-      @if(Auth::user())
+              @if(Auth::user())
               <!--div class="profile-image">
                 <img src="{{ asset('melody/images/faces/face5.jpg') }}" alt="image"/>
               </div-->
-		  @if(Auth::user()->name)            
+              @if(Auth::user()->name)
               <div class="profile-name">
-          		<p class="name">
-                      Welcome {{Auth::user()->name}}
+                <p class="name">
+                  Welcome {{Auth::user()->name}}
                 </p>
                 <p class="designation">
-		  {{Auth::user()->rol}}
-              </p>
+                  {{Auth::user()->rol}}
+                </p>
               </div>
-      @endif
-      @endif
+              @endif
+              @endif
             </div>
           </li>
           <li class="nav-item">
@@ -102,10 +103,10 @@
             </a>
             <div class="collapse" id="ui-advanced">
               <ul class="nav flex-column sub-menu">
-                 <li class="nav-item"><a class="nav-link" href="/products"><i class="fa fa-cube menu-icon"></i>  Todos</a></li>
-                <li class="nav-item"><a class="nav-link" href="/categories"><i class="fa fa-tags menu-icon"></i>  Categorias</a></li>
-                <li class="nav-item"> <a class="nav-link" href="/purchases"> <i class="fa fa-shopping-cart menu-icon"></i>  Compras</a></li>
-                <li class="nav-item"><a class="nav-link" href="/sales"><i class="fas fa-chart-pie menu-icon"></i>  Ventas</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products"><i class="fa fa-cube menu-icon"></i> Todos</a></li>
+                <li class="nav-item"><a class="nav-link" href="/categories"><i class="fa fa-tags menu-icon"></i> Categorias</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/purchases"> <i class="fa fa-shopping-cart menu-icon"></i> Compras</a></li>
+                <li class="nav-item"><a class="nav-link" href="/sales"><i class="fas fa-chart-pie menu-icon"></i> Ventas</a></li>
               </ul>
             </div>
           </li>
@@ -138,13 +139,13 @@
       <!-- partial -->
       <div class="main-panel">
 
-      @yield('content')
+        @yield('content')
 
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-          @yield('footer')
+            @yield('footer')
           </div>
         </footer>
         <!-- partial -->
@@ -176,6 +177,9 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="{{ asset('/melody/js/dashboard.js') }}"></script>
+  <!-- End custom js for this page-->
+  <!-- Custom js for this page-->
+  <script src="{{ asset('/melody/js/toastDemo.js')}}"></script>
   <!-- End custom js for this page-->
   @yield('js')
 </body>

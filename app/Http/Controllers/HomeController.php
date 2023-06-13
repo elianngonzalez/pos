@@ -11,6 +11,7 @@ use App\Models\Product;
 use Carbon\Carbon as CarbonCarbon;
 use Illuminate\Support\Carbon;
 
+
 class HomeController extends Controller
 {
     /**
@@ -33,18 +34,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $today_sales = DB::table('sales')
-            ->select(DB::raw('SUM(total) as total_sales'))
-            ->whereDate('sale_date', Carbon::today())
-            ->first();
-        $yesterday_sales = DB::table('sales')
-            ->select(DB::raw('SUM(total) as total_salesy'))
-            ->whereDate('sale_date', Carbon::yesterday())
-            ->first();
-        //dd($yesterday_sales);
+        $totalRecaudadoHoy = Sale::whereDate('sale_date', now()->toDateString())
+        ->sum('total');
+        $totalStock = DB::table('products')->sum('stock');
+        $lowStockCount = Product::where('stock', '<', 10)->count();
 
-        //dd($difference);
-        return view('admin.index');
+        $productsInZero = DB::table('products')
+                ->select('*')
+                ->where('stock', '=', 0)
+                ->get();
+        return view('admin.index', compact('totalRecaudadoHoy', 'totalStock' , 'lowStockCount','productsInZero'));
     }
 
     public function earnByMonth()

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('name')->unique();;
             $table->decimal('stock')->default(0);
             $table->decimal('alert')->default(0);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->decimal('sell_price');
             $table->enum('status', ['ACTIVE' ,'DEACTIVATED','DANGER'])->default('ACTIVE')->comment('estado del producto');
             

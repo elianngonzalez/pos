@@ -54,7 +54,7 @@
     $('#product_id').change(mostrarValores);
 
     function mostrarValores() {
-      datosDelProducto = document.getElementById('product_id').value.split('_')
+      datosDelProducto = $('#product_id option:selected').text().split('-')
       console.log({
         datosDelProducto
       });

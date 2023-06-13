@@ -11,6 +11,7 @@
 </style>
 
 <div class="content-wrapper">
+
   <div class="content-wrapper">
     <div class="page-header">
       <h3 class="page-title">
@@ -43,17 +44,17 @@
               <div class="statistics-item">
                 <p>
                   <i class="icon-sm fas fa-check-circle mr-2"></i>
-                  Update
+                  Stock total
                 </p>
-                <h2>7500</h2>
+                <h2>{{$totalStock}}</h2>
                 <label class="badge badge-outline-success badge-pill">57% increase</label>
               </div>
               <div class="statistics-item">
                 <p>
                   <i class="icon-sm fas fa-chart-line mr-2"></i>
-                  Sales
+                  Ganancia Bruta
                 </p>
-                <h2>9000</h2>
+                <h2>{{$totalRecaudadoHoy}}</h2>
                 <label class="badge badge-outline-success badge-pill">10% increase</label>
               </div>
               <div class="statistics-item">
@@ -75,9 +76,9 @@
           <div class="card-body">
             <h4 class="card-title">
               <i class="fas fa-gift"></i>
-              Orders
+              Ventas
             </h4>
-            <h2 class="mb-5">56000 <span class="text-muted h4 font-weight-normal">Sales by month</span></h2>
+            <h2 class="mb-5"><span class="text-muted h4 font-weight-normal">Ventas por meses</span></h2>
             <canvas id="orders-chart-test"></canvas>
             <div id="orders-chart-legend" class="orders-chart-legend"></div>
           </div>
@@ -88,9 +89,9 @@
           <div class="card-body">
             <h4 class="card-title">
               <i class="fas fa-chart-line"></i>
-              Sales
+              ventas
             </h4>
-            <h2 class="mb-5">56000 <span class="text-muted h4 font-weight-normal">Sales</span></h2>
+            <h2 class="mb-5"><span class="text-muted h4 font-weight-normal">ventas por hora</span></h2>
             <canvas id="sales-chart-test"></canvas>
           </div>
         </div>
@@ -102,7 +103,7 @@
           <div class="card-body d-flex flex-column">
             <h4 class="card-title">
               <i class="fas fa-chart-pie"></i>
-              Sales status
+              Productos mas vendidos del dia
             </h4>
             <div class="flex-grow-1 d-flex flex-column justify-content-between">
               <canvas id="sales-status-chart-test" class="mt-3"></canvas>
@@ -140,7 +141,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <!--div class="row">
       <div class="col-12 grid-margin">
         <div class="card">
           <div class="card-body">
@@ -277,7 +278,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div-->
     <!--div class="row">
       <div class="col-md-8 grid-margin stretch-card">
         <div class="card">
@@ -504,6 +505,57 @@
 @section('js')
 {!!Html::script("melody/js/data-table.js")!!}
 
+
+
+@if ($lowStockCount > 0)
+<script>
+  const showWarningToast = function(n) {
+    'use strict';
+    resetToastPosition();
+    $.toast({
+      heading: 'alerta',
+      text: 'Hay bajo stock.',
+      showHideTransition: 'slide',
+      icon: 'warning',
+      loaderBg: '#57c7d4',
+      position: 'top-right'
+    })
+  };
+  showWarningToast();
+</script>
+@endif
+
+@if ($productsInZero)
+@foreach ($productsInZero->all() as $error)
+<script>
+  const showDangerToast = function(errors) {
+    'use strict';
+    resetToastPosition();
+    let errorList = '<ul>';
+    for (let i = 0; i < errors.length; i++) {
+      errorList += '<li>' + errors[i].name + '</li>';
+    }
+    errorList += '</ul>';
+    $.toast({
+      heading: 'Productos con stock bajo',
+      text: errorList,
+      showHideTransition: 'slide',
+      icon: 'error',
+      loaderBg: '#f2a654',
+      position: 'top-right',
+      hideAfter: false, // no se oculta automáticamente
+      hideOnClick: true // se oculta al hacer clic en ella
+
+    });
+  };
+</script>
+@endforeach
+@endif
+<script>
+  let products = {!!json_encode($productsInZero->all())!!};
+  showDangerToast(products);
+</script>
+
 <script>
   $(document).ready(function() {
 
@@ -521,7 +573,9 @@
         groupedProducts[day].push(products[i]);
       }
 
-      console.log({groupedProducts});
+      console.log({
+        groupedProducts
+      });
     }
 
     //test()
@@ -569,7 +623,15 @@
                   drawBorder: false,
                 },
                 ticks: {
-                  stepSize: 1,
+                  stepSize: function() {
+                    let numeros = Data.map(item => item.total_profit)
+                    var suma = 0;
+                    for (var i = 0; i < numeros.length; i++) {
+                      suma += numeros[i];
+                    }
+                    var promedio = suma / numeros.length;
+                    return promedio;
+                  },
                   fontColor: "#686868"
                 }
               }],
@@ -658,7 +720,7 @@
       console.log({
         DataPie
       });
-      if ($("#sales-status-chart-test").length) {
+      if ($("#sales-status-chart-test").length && DataPie.length > 0) {
         var pieChartCanvas = $("#sales-status-chart-test").get(0).getContext("2d");
         var pieChart = new Chart(pieChartCanvas, {
           type: 'pie',
@@ -712,6 +774,11 @@
           }
         });
         document.getElementById('sales-status-chart-test-legend').innerHTML = pieChart.generateLegend();
+      } else {
+        // No hay datos para graficar, mostrando mensaje
+        const h1 = document.createElement('h1');
+        h1.textContent = 'No hay datos para graficar';
+        document.getElementById('sales-status-chart-test-legend').appendChild(h1);
       }
     }
 

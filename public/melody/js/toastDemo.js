@@ -23,12 +23,12 @@
       position: 'top-right'
     })
   };
-  showWarningToast = function() {
+  showWarningToast = function(n) {
     'use strict';
     resetToastPosition();
     $.toast({
-      heading: 'Warning',
-      text: 'And these were just the basic demos! Scroll down to check further details on how to customize the output.',
+      heading: 'alerta',
+      text: 'Hay productos con bajo stock.',
       showHideTransition: 'slide',
       icon: 'warning',
       loaderBg: '#57c7d4',

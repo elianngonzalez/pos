@@ -1,17 +1,33 @@
-(function($) {
+(function ($) {
   'use strict';
-  $(function() {
+  $(function () {
     $('#order-listing').DataTable({
       "aLengthMenu": [
         [5, 10, 15, -1],
         [5, 10, 15, "All"]
       ],
       "iDisplayLength": 10,
+      "order": [[0, "desc"]],
       "language": {
-        search: ""
+        "search": "Buscar:",
+        "lengthMenu": "Mostrar _MENU_ registros por página",
+        "zeroRecords": "No se encontraron resultados",
+        "info": "Mostrando página _PAGE_ de _PAGES_",
+        "infoEmpty": "No hay registros disponibles",
+        "infoFiltered": "(filtrados de un total de _MAX_ registros)",
+        "paginate": {
+          "first": "Primera",
+          "last": "Última",
+          "next": "Siguiente",
+          "previous": "Anterior"
+        },
+        "aria": {
+          "sortAscending": ": activar para ordenar de manera ascendente",
+          "sortDescending": ": activar para ordenar de manera descendente"
+        }
       }
     });
-    $('#order-listing').each(function() {
+    $('#order-listing').each(function () {
       var datatable = $(this);
       // SEARCH - Add the placeholder for Search and Turn this into in-line form control
       var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');

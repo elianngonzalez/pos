@@ -7,7 +7,7 @@ use App\Http\Requests\Product\UpdateRequest;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Provider;
-
+use Mockery\Undefined;
 
 class ProductController extends Controller
 {
@@ -25,16 +25,19 @@ class ProductController extends Controller
     }
 
     public function store(StoreRequest $request)
-    {
-        if ($request->file('picture')) {
+    {   
+        if ($request->hasFile('picture') ) {
             $file = $request->file('picture');
             $picture_name = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('/image'), $picture_name);
+            
+            $product = Product::create($request->all() + [
+                'image' => $picture_name
+            ]);
         }
 
-        $product = Product::create($request->all() + [
-            'image' => $picture_name
-        ]);
+        $product = Product::create($request->all());
+
         $product->update(['code' => $product->id]);
         return redirect()->route('products.index');
     }
@@ -54,15 +57,17 @@ class ProductController extends Controller
 
     public function update(UpdateRequest $request, Product $product)
     {
-        if ($request->file('picture')) {
+        if ($request->file('picture') ==! 'Undefined' ) {
             $file = $request->file('picture');
             $picture_name = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('/image'), $picture_name);
+            
+            $product->update($request->all() + [
+                'image' => $picture_name
+            ]);
         }
 
-        $product->update($request->all() + [
-            'image' => $picture_name
-        ]);
+        $product->update($request->all());
 
         return redirect()->route('products.index');
     }
@@ -70,7 +75,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-
         return redirect()->route('products.index');
     }
 }

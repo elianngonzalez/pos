@@ -23,7 +23,7 @@
 	<label class="label label-default" for='product_id'>Producto</label>
 	<select class="custom-select" name="product_id" id="product_id">
 		@foreach ($products as $product)
-		<option value="{!! $product->id !!}_{!! $product->sell_price !!}">{!! $product->name !!} - {!! $product->sell_price !!}$</option>
+		<option value="{!! $product->id !!}">{!! $product->name !!} -{!! $product->sell_price !!}</option>
 		@endforeach
 	</select>
 </fieldset>
